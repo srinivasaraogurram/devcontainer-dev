@@ -1,0 +1,28 @@
+{
+    "image": "mcr.microsoft.com/devcontainers/universal:2",
+    "hostRequirements": {
+      "cpus": 4
+    },
+    "waitFor": "onCreateCommand",
+    "updateContentCommand": "nvm install 8.9.3 && nvm use 8.9.3 && npm install -g @angular/cli@177.0 && cd angular5-ws && ng new my-angular5-app && cd new my-angular5-app && npm install",
+    "postCreateCommand": "",
+    "postAttachCommand": {
+      "server": "cd angular5-ws & cd my-angular5-app && ng serve"
+    },
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "angular.ng-template",
+          "esbenp.prettier-vscode",
+          "dbaeumer.vscode-eslint"
+        ]
+      }
+    },
+    "forwardPorts": [4200],
+    "portsAttributes": {
+      "4200": {
+        "label": "Angular Dev Server",
+        "onAutoForward": "openBrowser"
+      }
+    }
+  }

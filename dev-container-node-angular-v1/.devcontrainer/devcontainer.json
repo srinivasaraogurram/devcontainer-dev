@@ -1,0 +1,34 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "hostRequirements": {
+    "cpus": 4
+  },
+  "waitFor": "onCreateCommand",
+
+  "mounts": [
+  "type=bind,source=${localWorkspaceFolder}/angular-dev-ws,target=/workspaces/angular-dev-devcontainer/angular-dev-ws"
+]
+  "postCreateCommand": "apt-get update && apt-get install -y python2 && ln -sf /usr/bin/python2 /usr/bin/python && . /usr/local/share/nvm/nvm.sh && nvm use 8.9.3 && mkdir -p /workspaces/angular-dev-devcontainer/angular-dev-ws",
+  "updateContentCommand": ". /usr/local/share/nvm/nvm.sh && nvm install 8.9.3 && nvm use 8.9.3 && npm install -g @angular/cli@1.7.0 && echo 'export PATH=\"$PATH:$(npm bin -g)\"' >> /root/.bashrc && echo 'export PATH=\"$PATH:$(npm bin -g)\"' >> /root/.zshrc && node -v && ng --version && nvm use 8.9.3",
+  "postAttachCommand": ". /usr/local/share/nvm/nvm.sh && \
+  nvm use 8.9.3 && \
+  export PATH=\"$PATH:$(npm bin -g)\" && \
+  cd /workspaces/angular-dev-devcontainer && \
+  cd angular-dev-ws && \
+  ng --version && \
+  SHELL_TYPE=$(basename \"$SHELL\") && exec \"$SHELL\"",
+  "customizations": {
+    "codespaces": {
+      "openFiles": []
+    }
+  },
+  "portsAttributes": {
+    "4200": {
+      "label": "Angular App",
+      "onAutoForward": "openPreview"
+    }
+  },
+  "forwardPorts": [4200],
+  "workspaceFolder": "/workspaces/angular-dev-devcontainer",
+  "remoteUser": "root"
+}
