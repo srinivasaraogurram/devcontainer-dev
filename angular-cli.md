@@ -64,3 +64,60 @@ You should see Angular CLI details.
 ---
 
 Let me know if you’re using `nvm`, a specific Node version manager, or want this for all users (system-wide), and I can tailor the steps further.
+
+
+
+
+The **"Invalid Host header"** error usually happens when you're accessing your Angular app from a different hostname or IP (like in Docker, WSL2, or a dev container), and Angular's dev server (Webpack) blocks it for security reasons.
+
+Here’s how to fix it 👇
+
+---
+
+## ✅ Solution: Allow All Hosts (Development Only)
+
+Run `ng serve` with the `--disable-host-check` flag:
+
+```bash
+ng serve --disable-host-check
+```
+
+> ⚠️ This disables host checking entirely. It's fine for **local development** but **should never be used in production**.
+
+---
+
+## ✅ Better Solution: Use `--host` and `--public`
+
+If you want more control (e.g., when using IPs or accessing via `localhost` in a container):
+
+```bash
+ng serve --host 0.0.0.0 --public-host localhost:4200
+```
+
+- `--host 0.0.0.0`: Binds the dev server to all interfaces.
+- `--public-host`: Specifies the expected external address.
+
+You can also use `your-ip:4200` for `--public-host`.
+
+---
+
+## ✅ Permanent Fix: Edit `angular.json`
+
+If you want these settings every time you serve:
+
+```json
+"architect": {
+  "serve": {
+    "options": {
+      "host": "0.0.0.0",
+      "disableHostCheck": true
+    }
+  }
+}
+```
+
+Add that inside your project’s `angular.json`.
+
+---
+
+Let me know if you're using **WSL2, Docker, or Dev Containers**, and I’ll tailor it to that setup.
