@@ -1,0 +1,27 @@
+{
+    "image": "mcr.microsoft.com/devcontainers/universal:2",
+    "hostRequirements": {
+      "cpus": 4
+    },
+    "waitFor": "onCreateCommand",
+    "updateContentCommand": "cd my-express-app && npm install",
+    "postCreateCommand": "",
+    "postAttachCommand": {
+      "server": "cd my-express-app && npm start"
+    },
+    "customizations": {
+      "codespaces": {
+        "openFiles": [
+          "my-express-app/index.js"
+        ]
+      }
+    },
+    "portsAttributes": {
+      "3000": {
+        "label": "Application",
+        "onAutoForward": "openPreview"
+      }
+    },
+    "forwardPorts": [3000]
+  }
+  
